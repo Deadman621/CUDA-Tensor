@@ -1,63 +1,63 @@
-# Tensor
+# CUDA Tensor
 
-This project implements tensors and their related operations from scratch using CUDA. The goal of this project is to leverage neural networks to solve partial differential equations (PDEs) by incorporating physical laws into the training process; however, this remains incomplete.
+CUDA-Tensor is currently focused on building tensor primitives and tensor operations from scratch with CUDA/C++.
+
+The longer-term direction is still PINNs (Physics-Informed Neural Networks), but the active implementation right now is the tensor core needed for that future work.
+
+## Current Scope
+
+- CUDA-backed tensor type in `include/tensor.cuh`
+- Elementwise arithmetic (`add`, `sub`, `mul`, `div`) with broadcasting support
+- Matrix/tensor operations such as `matmul`, `dot`, and `transpose`
+- Runtime/device support under `include/device/`
+- A small executable example in `src/main.cu`
 
 ## Project Structure
 
-```
-PINN
-├── src
-│   ├── main.cu         # Entry point for the PINN implementation
-│   ├── network.cu      # Neural network architecture implementation
-│   └── utils.cu        # Utility functions for data handling and processing
+```text
+CUDA-Tensor
 ├── include
-│   ├── network.h       # Header file for neural network classes and functions
-│   └── utils.h         # Header file for utility functions and constants
-├── CMakeLists.txt      # CMake configuration file
-└── README.md           # Project documentation
+│   ├── tensor.cuh              # Core tensor implementation
+│   ├── network.cuh             # Reserved for future PINN/network work
+│   ├── host/
+│   │   └── init_tensor.h       # Tensor initialization/base host utilities
+│   └── device/                 # CUDA runtime, interface, constants, kernels, variables
+├── src
+│   ├── main.cu                 # Example entry point using tensor operations
+│   ├── network.cu              # Reserved for future PINN/network work
+│   └── utils.cu                # Reserved for future utilities
+├── other
+│   └── legacy_tensor.cuh       # Legacy tensor implementation
+├── CMakeLists.txt
+└── README.md
 ```
 
-## Setup Instructions
+## Build
 
-1. **Clone the repository:**
-   ```bash
-   git clone <repository-url>
-   cd PINN
-   ```
+Requirements:
+- CMake (3.18+)
+- CUDA Toolkit (with `nvcc`)
+- A C++20-capable compiler
 
-2. **Install dependencies:**
-   Ensure you have CMake and a CUDA-capable compiler installed on your system.
-
-3. **Build the project:**
-   ```bash
-   mkdir build
-   cd build
-   cmake ..
-   make
-   ```
-
-## Usage
-
-After building the project, you can run the PINN implementation using the following command:
+Build commands:
 
 ```bash
-./pinn_executable
+cmake -S . -B build
+cmake --build build
 ```
 
-Replace `pinn_executable` with the actual name of the compiled binary.
+This produces the `PINN` executable target (name kept for now).
 
-## Overview
+## Run
 
-The PINN framework consists of several components:
+```bash
+./build/PINN
+```
 
-- **Neural Network Architecture:** Defined in `network.cu` and `network.h`, this includes layers, forward and backward passes, and loss calculations.
-- **Utility Functions:** Implemented in `utils.cu` and declared in `utils.h`, these functions assist with data handling and normalization.
-- **Main Execution:** The `main.cu` file initializes the network, sets up the training process, and manages CUDA kernel execution.
+The current `main.cu` demonstrates a simple tensor division example.
 
-## Contributing
+## Roadmap
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
+- Expand and harden tensor functionality/performance
+- Add testing and benchmarking
+- Reintroduce network/PINN layers on top of the tensor core
