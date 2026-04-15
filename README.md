@@ -1,6 +1,6 @@
-# Physics-Informed Neural Networks (PINN)
+# Tensor
 
-This project implements Physics-Informed Neural Networks (PINN) from scratch using CUDA. The goal of this project is to leverage neural networks to solve partial differential equations (PDEs) by incorporating physical laws into the training process.
+This project implements tensors and their related operations from scratch using CUDA. The goal of this project is to leverage neural networks to solve partial differential equations (PDEs) by incorporating physical laws into the training process; however, this remains incomplete.
 
 ## Project Structure
 
